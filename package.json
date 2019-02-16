@@ -28,10 +28,12 @@
   ],
   "main": "./extension",
   "contributes": {
-    "commands": [{
-      "command": "clock.insertDateTime",
-      "title": "Clock: Insert date and time"
-    }],
+    "commands": [
+      {
+        "command": "clock.insertDateTime",
+        "title": "Clock: Insert date and time"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "Clock configuration",
@@ -40,6 +42,11 @@
           "type": "string",
           "default": "hh:MM TT",
           "description": "Clock: Date format according to https://github.com/felixge/node-dateformat"
+        },
+        "clock.clockInterval": {
+          "type": ["integer", "null"],
+          "default": 1000,
+          "description": "Clock: Update interval, in milliseconds"
         }
       }
     }

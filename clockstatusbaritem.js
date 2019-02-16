@@ -5,7 +5,7 @@ const
   dateformat = require('dateformat'),
   vscode = require('vscode');
 
-const DEFAULT_DATE_FORMAT = 'hh:MM TT';
+const DEFAULT_CLOCK_INTERVAL = 1000;
 
 class StatusBarItem {
   constructor() {
@@ -14,18 +14,17 @@ class StatusBarItem {
     this._statusBarItem.tooltip = 'Click to insert into selection';
     this._statusBarItem.show();
 
-    this._interval = setInterval(() => this.refreshUI(), 1000);
-
     this.refreshUI();
   }
 
   dispose() {
     this._statusBarItem.dispose();
-    clearInterval(this._interval);
+    clearTimeout(this._timeout);
   }
 
   refreshUI() {
     this._statusBarItem.text = clockService();
+    this._timeout = setTimeout(() => this.refreshUI(), vscode.workspace.getConfiguration('clock').clockInterval || DEFAULT_CLOCK_INTERVAL);
   }
 }
 
