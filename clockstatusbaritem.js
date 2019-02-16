@@ -5,8 +5,8 @@ const
   dateformat = require('dateformat'),
   vscode = require('vscode');
 
-const DEFAULT_DATE_FORMAT = 'hh:MM TT';
 const DEFAULT_CLOCK_COLOR = 'statusBar.foreground';
+const DEFAULT_CLOCK_INTERVAL = 1000;
 
 class StatusBarItem {
   constructor() {
@@ -38,11 +38,12 @@ class StatusBarItem {
   dispose() {
     this._configurationChangeListener.dispose();
     this._statusBarItem.dispose();
-    clearInterval(this._interval);
+    clearTimeout(this._timeout);
   }
 
   refreshUI() {
     this._statusBarItem.text = clockService();
+    this._timeout = setTimeout(() => this.refreshUI(), vscode.workspace.getConfiguration('clock').clockInterval || DEFAULT_CLOCK_INTERVAL);
   }
 }
 
