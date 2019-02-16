@@ -40,6 +40,11 @@
           "type": "string",
           "default": "hh:MM TT",
           "description": "Clock: Date format according to https://github.com/felixge/node-dateformat"
+        },
+        "clock.color": {
+          "type": "string",
+          "default": "statusBar.foreground",
+          "description": "Clock: Foreground color"
         }
       }
     }

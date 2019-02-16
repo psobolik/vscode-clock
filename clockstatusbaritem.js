@@ -6,6 +6,7 @@ const
   vscode = require('vscode');
 
 const DEFAULT_DATE_FORMAT = 'hh:MM TT';
+const DEFAULT_CLOCK_COLOR = 'statusBar.foreground';
 
 class StatusBarItem {
   constructor() {
@@ -16,10 +17,26 @@ class StatusBarItem {
 
     this._interval = setInterval(() => this.refreshUI(), 1000);
 
+    this._configurationChangeListener = vscode.workspace.onDidChangeConfiguration(((event) => {
+      this.configurationChangeHandler(event);
+    }).bind(this));
+
+    this.setClockColor();
     this.refreshUI();
   }
 
+  setClockColor() {
+    this._statusBarItem.color = vscode.workspace.getConfiguration('clock').color || DEFAULT_CLOCK_COLOR;
+  }
+
+  configurationChangeHandler(event) {
+    if (event.affectsConfiguration('clock.color')) {
+      this.setClockColor();
+    }
+  }
+
   dispose() {
+    this._configurationChangeListener.dispose();
     this._statusBarItem.dispose();
     clearInterval(this._interval);
   }
