@@ -2,7 +2,7 @@
   "name": "vscode-clock",
   "displayName": "Clock",
   "description": "Displays clock in status bar and insert into file",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "Compulim",
   "engines": {
     "vscode": "^0.10.1"
@@ -41,17 +41,17 @@
         "clock.dateFormat": {
           "type": "string",
           "default": "hh:MM TT",
-          "description": "Clock: Date format according to https://github.com/felixge/node-dateformat"
+          "description": "Date format; see https://github.com/felixge/node-dateformat"
         },
         "clock.color": {
           "type": "string",
           "default": "statusBar.foreground",
-          "description": "Clock: Foreground color"
+          "description": "Foreground color"
         },
         "clock.clockInterval": {
           "type": ["integer", "null"],
           "default": 1000,
-          "description": "Clock: Update interval, in milliseconds"
+          "description": "Update interval, in milliseconds"
         }
       }
     }
